@@ -1,0 +1,1379 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.frmTimeMaterial..Create(BaseForm)
+Gui.frmTimeMaterial..Caption("Time & Material")
+Gui.frmTimeMaterial..Size(16080,10200)
+Gui.frmTimeMaterial..MinX(15210)
+Gui.frmTimeMaterial..MinY(9930)
+Gui.frmTimeMaterial..Position(0,0)
+Gui.frmTimeMaterial..BackColor(-2147483633)
+Gui.frmTimeMaterial..MousePointer(0)
+Gui.frmTimeMaterial..Event(UnLoad,frmTimeMaterial_UnLoad)
+Gui.frmTimeMaterial..AlwaysOnTop(False)
+Gui.frmTimeMaterial..FontName("Tahoma")
+Gui.frmTimeMaterial..FontSize(8.25)
+Gui.frmTimeMaterial..ControlBox(True)
+Gui.frmTimeMaterial..MaxButton(True)
+Gui.frmTimeMaterial..MinButton(True)
+Gui.frmTimeMaterial..Moveable(True)
+Gui.frmTimeMaterial..Sizeable(True)
+Gui.frmTimeMaterial..ShowInTaskBar(True)
+Gui.frmTimeMaterial..TitleBar(True)
+Gui.frmTimeMaterial.picGSS.Create(PictureBox)
+Gui.frmTimeMaterial.picGSS.Size(4695,1305)
+Gui.frmTimeMaterial.picGSS.Position(5670,165)
+Gui.frmTimeMaterial.picGSS.Event(DblClick,picGSS_DblClick)
+Gui.frmTimeMaterial.picGSS.Enabled(True)
+Gui.frmTimeMaterial.picGSS.Visible(True)
+Gui.frmTimeMaterial.picGSS.Zorder(0)
+Gui.frmTimeMaterial.GsGCJobHist.Create(GsGridControl)
+Gui.frmTimeMaterial.GsGCJobHist.Size(15870,8130)
+Gui.frmTimeMaterial.GsGCJobHist.Position(75,1545)
+Gui.frmTimeMaterial.GsGCJobHist.Enabled(True)
+Gui.frmTimeMaterial.GsGCJobHist.Visible(True)
+Gui.frmTimeMaterial.GsGCJobHist.Zorder(0)
+Gui.frmTimeMaterial.GsGCJobHist.Event(CellValueChanged,GsGCJobHist_CellValueChanged)
+Gui.frmTimeMaterial.frameOptions.Create(Frame)
+Gui.frmTimeMaterial.frameOptions.Size(4350,1455)
+Gui.frmTimeMaterial.frameOptions.Position(60,60)
+Gui.frmTimeMaterial.frameOptions.Caption("")
+Gui.frmTimeMaterial.frameOptions.Enabled(True)
+Gui.frmTimeMaterial.frameOptions.Visible(True)
+Gui.frmTimeMaterial.frameOptions.Zorder(0)
+Gui.frmTimeMaterial.frameOptions.FontName("Tahoma")
+Gui.frmTimeMaterial.frameOptions.FontSize(8.25)
+Gui.frmTimeMaterial.cmdRefresh.Create(Button)
+Gui.frmTimeMaterial.cmdRefresh.Size(975,375)
+Gui.frmTimeMaterial.cmdRefresh.Position(3105,570)
+Gui.frmTimeMaterial.cmdRefresh.Caption("REFRESH")
+Gui.frmTimeMaterial.cmdRefresh.Event(Click,cmdRefresh_Click)
+Gui.frmTimeMaterial.cmdRefresh.Parent("frameOptions")
+Gui.frmTimeMaterial.cmdRefresh.Enabled(True)
+Gui.frmTimeMaterial.cmdRefresh.Visible(True)
+Gui.frmTimeMaterial.cmdRefresh.Zorder(0)
+Gui.frmTimeMaterial.cmdRefresh.FontName("Tahoma")
+Gui.frmTimeMaterial.cmdRefresh.FontSize(8.25)
+Gui.frmTimeMaterial.lblStatus.Create(Label,"Label",False,390,210,0,12930,540,True,0,"Arial",8,-2147483633,0,0)
+Gui.frmTimeMaterial.lblStatus.BorderStyle(0)
+Gui.frmTimeMaterial.pgbStatus.Create(ProgressBar)
+Gui.frmTimeMaterial.pgbStatus.Visible(False)
+Gui.frmTimeMaterial.pgbStatus.Size(2940,255)
+Gui.frmTimeMaterial.pgbStatus.Position(12945,765)
+Gui.frmTimeMaterial.txtOmkup.Create(TextBox,"",True,705,300,0,1980,630,True,0,"Tahoma",8.25,,1)
+Gui.frmTimeMaterial.txtOmkup.NumericOnly(1)
+Gui.frmTimeMaterial.txtMmkup.Create(TextBox,"",True,705,300,0,1980,1125,True,0,"Tahoma",8.25,,1)
+Gui.frmTimeMaterial.txtMmkup.NumericOnly(1)
+Gui.frmTimeMaterial.lblOmkup.Create(Label,"Outside Markup",True,1665,285,0,135,645,True,0,"Tahoma",12,,0,0)
+Gui.frmTimeMaterial.lblOmkup.BorderStyle(0)
+Gui.frmTimeMaterial.lblMmkup.Create(Label,"Material Markup",True,1680,285,0,135,1140,True,0,"Tahoma",12,,0,0)
+Gui.frmTimeMaterial.lblMmkup.BorderStyle(0)
+Gui.frmTimeMaterial.cboJobNum.Create(ComboBox)
+Gui.frmTimeMaterial.cboJobNum.Enabled(True)
+Gui.frmTimeMaterial.cboJobNum.Visible(True)
+Gui.frmTimeMaterial.cboJobNum.Zorder(0)
+Gui.frmTimeMaterial.cboJobNum.Size(1215,300)
+Gui.frmTimeMaterial.cboJobNum.Position(1980,150)
+Gui.frmTimeMaterial.cboJobNum.FontName("Tahoma")
+Gui.frmTimeMaterial.cboJobNum.FontSize(8.25)
+Gui.frmTimeMaterial.lblOmkup2.Create(Label,"JOB",True,420,285,0,135,165,True,0,"Tahoma",12,,0,0)
+Gui.frmTimeMaterial.lblOmkup2.BorderStyle(0)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+	V.Global.bLoadData.Declare
+	V.Global.bLongPart.Declare
+	V.Global.bEditTracking.Declare
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	V.Local.sIcon.Declare
+	V.Local.sGssLogo.Declare
+	V.Local.dStart.Declare
+	
+	F.Intrinsic.String.Build("{0}\gss2.ico",V.Caller.GasDir,V.Local.sIcon)
+	F.Intrinsic.String.Build("{0}\Gab_GSS_Logo_Green_Dash.png",V.Caller.GasDir,V.Local.sGssLogo)
+	Gui.frmTimeMaterial..Icon(V.local.sIcon)
+	
+	Gui.frmTimeMaterial.picGSS.Picture(V.Local.sGssLogo)
+		
+	F.Intrinsic.Control.CallSub(SetAnchors)
+	F.Intrinsic.Control.CallSub(CheckLongPart)
+	F.Intrinsic.Control.CallSub(CheckTracking)
+	
+	Gui.frmTimeMaterial..Show
+	F.Intrinsic.Control.CallSub(LoadComboBoxes)
+			
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.frmTimeMaterial_UnLoad.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	F.Intrinsic.Control.If(V.Global.bLoadData)
+		F.Intrinsic.Control.CallSub(Serialize)
+		
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.End
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.frmTimeMaterial_UnLoad.End
+
+Program.Sub.SetAnchors.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.sCaption.Declare
+	
+	'0 - None
+	'1 - Top
+	'2 - Bottom
+	'4 - Left
+	'8 - Right
+	
+	Gui.frmTimeMaterial.picGSS.Anchor(1)
+	Gui.frmTimeMaterial.GsGCJobHist.Anchor(15)
+	Gui.frmTimeMaterial.lblStatus.Anchor(9)
+	Gui.frmTimeMaterial.pgbStatus.Anchor(9)
+	Gui.frmProfit.GsChartProfit.Anchor(15)
+	
+	F.Intrinsic.String.Build("Total Cost ({0})",V.Company.CurrencySymbol,V.Local.sCaption)
+	F.Intrinsic.String.Replace(V.Local.sCaption,"USD","",V.Local.sCaption)
+	F.Intrinsic.String.Build("Price ({0})",V.Company.CurrencySymbol,V.Local.sCaption)
+	F.Intrinsic.String.Replace(V.Local.sCaption,"USD","",V.Local.sCaption)
+	
+	'Sales
+	F.Intrinsic.String.Build("Sales ({0})",V.Company.CurrencySymbol,V.Local.sCaption)
+	F.Intrinsic.String.Replace(V.Local.sCaption,"USD","",V.Local.sCaption)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.SetAnchors.End
+
+Program.Sub.CheckLongPart.Start
+	F.Global.General.ReadOption("400861",0,False,"0000",V.Global.bLongPart)
+	F.Intrinsic.Control.If(V.Global.bLongPart,=,False)
+		F.Global.General.ReadOption("400861",0,False,"0004",V.Global.bLongPart)
+	F.Intrinsic.Control.EndIf
+Program.Sub.CheckLongPart.End
+
+Program.Sub.CheckTracking.Start
+	V.Local.sFile.Declare
+	
+	F.Intrinsic.String.Build("{0}\GAB_4637_Edit_Tracking.do",V.Caller.GasDir,V.Local.sFile)
+	F.Intrinsic.File.Exists(V.Local.sFile,V.Global.bEditTracking)
+Program.Sub.CheckTracking.End
+
+Program.Sub.SetContextMenus.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	Gui.frmTimeMaterial..ContextMenuCreate("ctxJobHist")
+	Gui.frmTimeMaterial.GsGCJobHist.ContextMenuAttach("ctxJobHist")
+	Gui.frmTimeMaterial..ContextMenuAddItem("ctxJobHist","Refresh",0,"Refresh")
+	Gui.frmTimeMaterial..ContextMenuAddItem("ctxJobHist","Export",0,"Export")
+	Gui.frmTimeMaterial..ContextMenuAddItem("ctxJobHist","ResetColumns",0,"Reset Columns")
+	Gui.frmTimeMaterial..ContextMenuSetItemEventHandler("ctxJobHist","Refresh","MenuClickRefresh")
+	Gui.frmTimeMaterial..ContextMenuSetItemEventHandler("ctxJobHist","Export","MenuClickExport")
+	Gui.frmTimeMaterial..ContextMenuSetItemEventHandler("ctxJobHist","ResetColumns","MenuClickResetColumns")
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.SetContextMenus.End
+
+Program.Sub.MenuClickRefresh.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	F.Intrinsic.Control.CallSub(cmdRefresh_Click)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.MenuClickRefresh.End
+
+Program.Sub.MenuClickExport.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.sFileExport.Declare
+	V.Local.bExcel.Declare
+	V.Local.bFileLocked.Declare
+	V.Local.sMsg.Declare
+	V.Local.sForm.Declare(String,"frmTimeMaterial")
+	V.Local.sControl.Declare
+	V.Local.bChart.Declare
+	
+	V.Local.bChart.Set(False)
+	F.Intrinsic.Control.SelectCase(V.Args.MenuName)
+		F.Intrinsic.Control.Case("CTXJobHist")
+			V.Local.sControl.Set("GsGCJobHist")
+
+	F.Intrinsic.Control.EndSelect
+
+	F.Intrinsic.Control.If(V.Local.bChart,=,False)
+		F.Automation.MSExcel.CheckPresence(V.Local.bExcel)
+		F.Intrinsic.Control.If(V.Local.bExcel)
+			F.Intrinsic.String.Build("{0}\GAB_Time_&_Material_Export.xlsx",V.Caller.LocalGssTempDir,V.Local.sFileExport)
+			F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+			F.Intrinsic.Control.If(V.Local.bFileLocked)
+				F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+				F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+			F.Intrinsic.Control.Else
+				Gui.frmTimeMaterial.GsGCJobHist.Export(V.Local.sFileExport,"xlsx")
+				F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("{0}\GAB_Time_&_Material_Export.csv",V.Caller.LocalGssTempDir,V.Local.sFileExport)
+			F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+			F.Intrinsic.Control.If(V.Local.bFileLocked)
+				F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+				F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+			F.Intrinsic.Control.Else
+				Gui.frmTimeMaterial.GsGCJobHist.Export(V.Local.sFileExport,"csv")
+			F.Intrinsic.Control.EndIf
+			F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("{0}\{1}.jpg",V.Caller.LocalGSSTempDir,V.Local.sControl,V.Local.sFileExport)
+		Gui.[V.Local.sForm].[V.Local.sControl].ImageToFile("JPEG",V.Local.sFileExport)
+		F.Intrinsic.Task.ShellExec(0,"Open",V.Local.sFileExport,"","",0)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.MenuClickExport.End
+
+Program.Sub.MenuClickResetColumns.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+			
+			F.Global.Registry.AddValue(V.Caller.User,V.Caller.CompanyCode,"GVJobHist",4637,1000,False,"Serialize",False,0,-999.0,1/1/1980,12:00:00 AM,"")
+			F.Intrinsic.Control.CallSub(LoadDtJobHist)
+			
+	F.Intrinsic.Control.EndSelect
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.MenuClickResetColumns.End
+
+Program.Sub.cmdRefresh_Click.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	f.Intrinsic.Control.If(v.Screen.frmTimeMaterial!cboJobNum.Value, =,"Select job")
+	F.Intrinsic.UI.Msgbox("Select a job from the dropdown list to continue")
+	F.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.Global.bLoadData)
+		F.Intrinsic.Control.CallSub(Serialize)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.CallSub(LoadDtJobHist)
+	F.Intrinsic.Control.CallSub(Deserialize)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.cmdRefresh_Click.End
+
+Program.Sub.LoadComboBoxes.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	Gui.frmTimeMaterial.cmdRefresh.Enabled(False)
+	Gui.frmTimeMaterial.lblStatus.Visible(True)
+	Gui.frmTimeMaterial.pgbStatus.Visible(True)
+	Gui.frmTimeMaterial.lblStatus.Caption("Loading Job List..")
+	Gui.frmTimeMaterial.pgbStatus.Min(0)
+	Gui.frmTimeMaterial.pgbStatus.Max(100)
+	Gui.frmTimeMaterial.pgbStatus.Value(15)
+	
+	F.ODBC.Connection!con.OpenCompanyConnection(6000)
+	Gui.frmTimeMaterial.pgbStatus.Value(25)
+	'Select JOB combobox
+	F.Data.DataTable.CreateFromSQL("dtJOB","con","Select DISTINCT JOB From V_JOB_detAIL WHERE EDITED_WO_DTL not like 'R' and HOURS_WORKED > 0;",True)
+	Gui.frmTimeMaterial.cboJobNum.AddItems("DataTable","dtJOB","JOB","JOB")
+	Gui.frmTimeMaterial.cboJobNum.Text("Select job")
+	Gui.frmTimeMaterial.pgbStatus.Value(90)
+	
+	F.ODBC.Connection!con.Close
+	
+	Gui.frmTimeMaterial.pgbStatus.Value(100)
+	Gui.frmTimeMaterial.cmdRefresh.Enabled(True)
+	Gui.frmTimeMaterial.lblStatus.Visible(False)
+	Gui.frmTimeMaterial.pgbStatus.Visible(False)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.LoadComboBoxes.End
+
+Program.Sub.CreateDictionaries.Start
+F.Intrinsic.Control.Try
+V.Local.sError.Declare(String)
+
+	'PO Dict
+	F.Data.Dictionary.CreateFromSQL("dictPO","con","SELECT Rtrim(right(TRANSACTION_DESC,12)) as invKEY, Rtrim(right(TRANSACTION_DESC,12)) as PO FROM V_INVENTORY_HIST")
+	F.Data.Dictionary.SetDefaultReturn("dictPO","")
+	
+	'Display Part Dict
+	F.Data.Dictionary.CreateFromSQL("dictDisplayPart","con","select Rtrim(right(TRANSACTION_DESC,12)) as invKEY, PART FROM V_INVENTORY_HIST")
+	F.Data.Dictionary.SetDefaultReturn("dictDisplayPart","")
+	
+	'Qty Dict from Inv Hist
+	F.Data.Dictionary.CreateFromSQL("DictQty","con","SELECT Rtrim(right(TRANSACTION_DESC,12)) as invKEY, QUANTITY FROM V_INVENTORY_HIST order by QUANTITY")
+	F.Data.Dictionary.SetDefaultReturn("DictQty","0")
+	
+	'Vendor Dict
+	F.Data.Dictionary.CreateFromSQL("dictVendor","con","SELECT PART+PURCHASE_ORDER AS poKEY, VENDOR FROM V_PO_HISTORY")
+	F.Data.Dictionary.SetDefaultReturn("dictVendor","")
+	
+	'Qty Received Dict
+'	F.Data.Dictionary.CreateFromSQL("dictQtyReceived","con","SELECT PART+PURCHASE_ORDER AS poKEY, QTY_RECEIVED FROM V_PO_HISTORY")
+	F.Data.Dictionary.CreateFromSQL("dictQtyReceived","con","SELECT PART+PURCHASE_ORDER AS poKEY, SUM(QTY_RECEIVED) FROM V_PO_HISTORY group by PART, PURCHASE_ORDER")
+	F.Data.Dictionary.SetDefaultReturn("dictQtyReceived","0")
+
+	'Extra Text Dict
+	F.Data.Dictionary.CreateFromSQL("dictText","con","SELECT PART, TEXT FROM INV_EXTRA_TEXT")
+	F.Data.Dictionary.SetDefaultReturn("dictText","")
+	
+	'Employee Name Dict
+	F.Data.Dictionary.CreateFromSQL("dictEmp","con","SELECT EMPLOYEE, NAME FROM V_EMPLOYEE_MSTR")
+	F.Data.Dictionary.SetDefaultReturn("dictEmp","")
+	
+	'Bill Rate Dict
+	F.Data.Dictionary.CreateFromSQL("dictBillRate","con","SELECT EMPLOYEE, CAST(PR_BILL_RATE AS FLOAT) AS PR_BILL_RATE FROM V_EMPLOYEE_MSTR")
+	F.Data.Dictionary.SetDefaultReturn("dictBillRate","0")
+	
+	'Heat Dict
+	F.Data.Dictionary.CreateFromSQL("dictHeat","con","SELECT PART+JOB+SUFFIX AS itmKEY, HEAT FROM V_ITEM_HISTORY")
+	F.Data.Dictionary.SetDefaultReturn("dictHeat","")
+	
+	'Bin Dict
+	F.Data.Dictionary.CreateFromSQL("dictBin","con","SELECT PART+JOB+SUFFIX AS itmKEY, BIN FROM V_ITEM_HISTORY")
+	F.Data.Dictionary.SetDefaultReturn("dictBin","")
+	
+	'Vendor Name Dict
+	F.Data.Dictionary.CreateFromSQL("dictVendName","con","SELECT VENDOR, NAME_VENDOR FROM V_VENDOR_MASTER")
+	F.Data.Dictionary.SetDefaultReturn("dictVendName","")
+	
+	'Fill Qty from Item History
+	F.Data.Dictionary.CreateFromSQL("dictItemQty","con","SELECT PART+JOB+SUFFIX AS itmKEY, QUANTITY FROM V_ITEM_HISTORY order by QUANTITY")
+	F.Data.Dictionary.SetDefaultReturn("dictItemQty","0")
+	
+	'Code Transaction Dict
+	F.Data.Dictionary.CreateFromSQL("dictCodeTrans","con","SELECT PART+JOB+SUFFIX AS itmKEY, CODE_TRANSACTION FROM V_ITEM_HISTORY")
+	F.Data.Dictionary.SetDefaultReturn("dictCodeTrans","")
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End 
+F.Intrinsic.Control.EndTry
+Program.Sub.CreateDictionaries.End
+
+Program.Sub.CloseDictionaries.Start
+F.Intrinsic.Control.Try
+V.Local.sError.Declare(String)
+
+	V.Local.iCount.Declare(Long)
+	V.Local.sDicts.Declare(String)
+	V.Local.sDicts.Set("dictPO*!*dictDisplayPart*!*dictQty*!*dictVendor*!*dictQtyReceived*!*dictText*!*dictEmp*!*dictBillRate*!*dictHeat*!*dictBin*!*dictVendName*!*dictItemQty*!*dictCodeTrans")
+	
+	F.Intrinsic.String.Split(V.Local.sDicts, "*!*", V.Local.sDicts)
+	
+	F.Intrinsic.Control.For(V.Local.iCount, 0, V.Local.sDicts.UBound, 1)
+		F.Data.Dictionary.Close(V.Local.sDicts(V.Local.iCount))
+	F.Intrinsic.Control.Next(V.Local.iCount)
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End 
+F.Intrinsic.Control.EndTry
+Program.Sub.CloseDictionaries.End
+
+Program.Sub.FillFromDictionaries.Start
+F.Intrinsic.Control.Try
+V.Local.sError.Declare(String)
+
+	'Fill PO from inv hist
+	F.Data.Datatable.AddColumn(V.Args.Table,"PO","String")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictPO","PART","PO")
+	
+	'Display fills in on all table except dtTempL
+	F.Intrinsic.Control.If(V.Args.Table, <>, "dtTempL")
+		'Fill Display part from inv hist
+		F.Data.Datatable.AddColumn(V.Args.Table,"DISPLAY_PART","String")
+		F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictDisplayPart","PO","DISPLAY_PART")
+	F.Intrinsic.Control.EndIf
+		
+	'Pullin qty from inv hist
+	F.Data.Datatable.AddColumn(V.Args.Table,"inv_qty","Float")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"DictQty","PO","inv_qty")
+	
+	'Add expression column for the inv key we use later
+	F.Data.Datatable.AddExpressionColumn(V.Args.Table,"INV_KEY","String","[DISPLAY_PART]+[JOB]+[SUFFIX]")
+	
+	'Add expression column to pull in po history
+	F.Data.Datatable.AddExpressionColumn(V.Args.Table,"PO_Key","String","[DISPLAY_PART]+[REFERENCE]")
+	
+	'Fill Vendor from po_history
+	F.Data.Datatable.AddColumn(V.Args.Table,"VENDOR","String")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictVendor","PO_Key","Vendor")
+	
+	'Fill qty received from po history
+	F.Data.Datatable.AddColumn(V.Args.Table,"qty_received","Float")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictQtyReceived","PO_KEY","qty_received")
+
+	'Fill Text from Inv_Extra_Text
+	F.Data.Datatable.AddColumn(V.Args.Table,"TEXT","String")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictText","PART","TEXT")
+	
+	'Fill Name from v_employee_mstr
+	F.Data.Datatable.AddColumn(V.Args.Table,"NAME","String")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictEmp","EMPL","NAME")
+	
+	'Fill Bill Rate from v_employee_mstr
+	F.Data.Datatable.AddColumn(V.Args.Table,"PR_BILL_RATE","Float")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictBillRate","EMPL","PR_BILL_RATE")
+	
+	'Fill Heat from Item History
+	F.Data.Datatable.AddColumn(V.Args.Table,"HEAT","String")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictHeat","INV_KEY","Heat")
+	
+	'Fill BIN from Item History
+	F.Data.Datatable.AddColumn(V.Args.Table,"BIN","String")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictBin","INV_KEY","BIN")
+	
+	'Fill Vendor name from vendor master
+	F.Data.Datatable.AddColumn(V.Args.Table,"NAME_VENDOR","String")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictVendName","Vendor","NAME_VENDOR")
+	
+	'Fill Code Transaction from inventory_hist
+	F.Data.Datatable.AddColumn(V.Args.Table,"CODE_TRANSACTION","String")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictCodeTrans","INV_KEY","CODE_TRANSACTION")
+	
+	F.Data.Datatable.AddColumn(V.Args.Table,"QUANTITY","Float")
+	F.Data.Datatable.FillFromDictionary(V.Args.Table,"dictItemQty","INV_KEY","QUANTITY")
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End 
+F.Intrinsic.Control.EndTry
+Program.Sub.FillFromDictionaries.End
+
+Program.Sub.LoadDtJobHist.Start
+
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	V.Local.sSQL.Declare
+	V.Local.sPart.Declare
+	V.Local.sPL.Declare
+	V.Local.fMmkup.Declare
+	V.Local.fPMmkup.Declare
+	V.Local.fPOmkup.Declare
+	V.Local.fOmkup.Declare	
+	V.Local.sLMO.Declare
+	v.Local.sSetmkup.Declare
+	V.Local.i.Declare
+	v.Local.fMatLab.Declare 'Labor amount ~ aka Material Cost
+	v.Local.fHrsWkd.Declare
+	v.Local.fMatRes.Declare 'Material rate
+	v.Local.fTot.Declare'Total Price
+	V.Local.sRtType.Declare 'rate type
+	v.Local.fRate.Declare 'emp rate ~ emp_mstr 
+	v.Local.sJob.Declare(String)
+	v.Local.ssqlsub.Declare(String)
+	v.Local.bRet.Declare(Boolean)
+	
+	Gui.frmTimeMaterial.cmdRefresh.Enabled(False)
+	Gui.frmTimeMaterial.lblStatus.Visible(True)
+	Gui.frmTimeMaterial.pgbStatus.Visible(True)
+	Gui.frmTimeMaterial.lblStatus.Caption("Loading Job Data....")
+	Gui.frmTimeMaterial.pgbStatus.Min(0)
+	Gui.frmTimeMaterial.pgbStatus.Max(100)
+	Gui.frmTimeMaterial.pgbStatus.Value(15)
+	
+	F.ODBC.Connection!con.OpenCompanyConnection()
+	F.Intrinsic.Control.CallSub(CreateDictionaries)
+	
+	F.Intrinsic.Control.If(V.DataTable.dtJobHist.Exists)
+		F.Data.DataTable.Close("dtJobHist")
+	F.Intrinsic.Control.EndIf
+	Gui.frmTimeMaterial.pgbStatus.Value(15)
+	
+	F.Intrinsic.Control.If(V.Global.bLoadData,=,False)
+	F.Intrinsic.Control.CallSub(SetContextMenus)
+	F.Intrinsic.Control.EndIf
+	'Get Markup  
+	V.Local.fPMmkup.Set(v.Screen.frmTimeMaterial!txtMmkup.value)
+	V.Local.fPOmkup.Set(v.Screen.frmTimeMaterial!txtOmkup.value)
+	'%
+	f.Intrinsic.Math.Evaluate("[v.Local.fPMmkup]/100",v.Local.fMmkup)
+	f.Intrinsic.Math.Evaluate("[v.Local.fPOmkup]/100",v.Local.fOmkup)
+	
+	'grab combo
+	v.Local.sJob.Set(v.Screen.frmTimeMaterial!cboJobNum.Value)
+	
+	V.Global.bLoadData.Set(True)
+	Gui.frmTimeMaterial.pgbStatus.Value(25)
+
+	F.Data.DataTable.Create("dtJobHist",True)
+	F.Data.DataTable.AddColumn("dtJobHist","JOB", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","SUFFIX", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","SEQ", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","DATE_SEQUENCE", "DATE")
+	F.Data.DataTable.AddColumn("dtJobHist","DESCRIPTION", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","TEXT", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","DISPLAY_PART", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","PART", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","UM", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","HOURS_WORKED", "FLOAT")
+	F.Data.DataTable.AddColumn("dtJobHist","LMO", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","EMPL", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","RATE_TYPE", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","SEQUENCE_KEY", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","START_TIME", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","END_TIME", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","AMOUNT_LABOR", "FLOAT")
+	F.Data.DataTable.AddColumn("dtJobHist","NAME", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","PR_BILL_RATE", "FLOAT")
+	F.Data.DataTable.AddColumn("dtJobHist","HEAT", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","BIN", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","VENDOR", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","NAME_VENDOR", "STRING")
+	F.Data.DataTable.AddColumn("dtJobHist","PO", "STRING")
+	F.Data.DataTable.AddExpressionColumn("dtJobHist", "Materialup", "long", v.Local.fMmkup)
+	F.Data.DataTable.AddExpressionColumn("dtJobHist", "Outsideup", "long", v.Local.fOmkup)
+	f.Data.Datatable.AddColumn("dtJobHist","Total_Price","float")
+	f.Data.Datatable.AddColumn("dtJobHist","JBRATE","float")
+	f.Data.Datatable.AddColumn("dtJobHist","LRATE","float")
+	
+	'V.Local.sSQL.Set("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, D.TEXT, A.PART, A.UM, A.HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, A.AMOUNT_LABOR, B.NAME, B.PR_BILL_RATE, C.HEAT, E.VENDOR, F.NAME_VENDOR FROM V_JOB_DETAIL A LEFT JOIN V_EMPLOYEE_MSTR B ON A.EMPL = B.EMPLOYEE LEFT JOIN V_ITEM_HISTORY C on A.PART = C.PART AND A.JOB = C.JOB AND A.SUFFIX = C.SUFFIX LEFT JOIN INV_EXTRA_TEXT D ON A.PART = D.PART LEFT JOIN PO_HISTORY E ON A.PART = E.PART AND C.PURCHASE_ORDER = E.PURCHASE_ORDER AND C.PO_LINE = E.PO_LINE LEFT JOIN V_VENDOR_MASTER F ON E.VENDOR = F.VENDOR WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 ")
+	'f.Intrinsic.String.Build("{0} AND A.JOB = '{1}';",v.Local.sSQL,v.Screen.frmTimeMaterial!cboJobNum.Value,v.Local.sSQL)
+	
+	'F.Data.DataTable.CreateFromSQL("dtJobHist","con",V.Local.sSQL,True)
+	
+	F.Intrinsic.Control.If(V.DataTable.dtTempL.Exists,=,True)
+		F.Data.DataTable.Close("dtTempL")
+	F.Intrinsic.Control.EndIf
+	
+	'Labor
+	F.Intrinsic.String.Build("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, A.PART, 'HR' AS UM, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, B.NAME, CAST(B.PR_BILL_RATE AS FLOAT) AS PR_BILL_RATE, A.MACHINE AS DISPLAY_PART FROM V_JOB_DETAIL A LEFT JOIN V_EMPLOYEE_MSTR B ON A.EMPL = B.EMPLOYEE WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 AND LTRIM(RTRIM(A.LMO)) = 'L' AND A.JOB = '{0}';",v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtTempL","con",v.Local.sSQL)
+	
+'	F.Intrinsic.String.Build("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, A.PART, 'HR' AS UM, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, A.MACHINE AS DISPLAY_PART, A.REFERENCE FROM V_JOB_DETAIL A WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 AND LTRIM(RTRIM(A.LMO)) = 'L' AND A.JOB = '{0}';",v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+'	F.Data.DataTable.CreateFromSQL("dtTempL","con",v.Local.sSQL, True)
+'	
+'	F.Intrinsic.Control.CallSub(FillFromDictionaries, "Table", "dtTempL")
+'	F.Data.Datatable.RemoveColumn("dtTempL","INV_KEY")
+	
+	F.Intrinsic.Control.If(V.DataTable.dtTempM.Exists,=,True)
+		F.Data.DataTable.Close("dtTempM")
+	F.Intrinsic.Control.EndIf
+	
+	'Issued Matl
+	F.Intrinsic.String.Build("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, D.TEXT, A.PART, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, B.NAME, CAST(B.PR_BILL_RATE AS FLOAT) AS PR_BILL_RATE, C.HEAT, RTRIM(IA.PART) AS DISPLAY_PART FROM V_JOB_DETAIL A LEFT JOIN V_INVENTORY_ALL IA ON A.PART = IA.PART LEFT JOIN V_EMPLOYEE_MSTR B ON A.EMPL = B.EMPLOYEE LEFT JOIN V_ITEM_HISTORY C on A.PART = C.PART AND A.JOB = C.JOB AND A.SUFFIX = C.SUFFIX LEFT JOIN INV_EXTRA_TEXT D ON IA.PART = D.PART WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 and LTRIM(RTRIM(A.LMO)) = 'M' AND A.REFERENCE = '' AND C.CODE_TRANSACTION = 'J55' and a.job = '{0}';",v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtTempM","con",v.Local.sSQL)
+	
+''	Issue Matl
+'	F.Intrinsic.String.Build("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, A.PART, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, A.REFERENCE FROM V_JOB_DETAIL A WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 and LTRIM(RTRIM(A.LMO)) = 'M' AND A.REFERENCE = '' and a.job = '{0}';",v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+'	F.Data.DataTable.CreateFromSQL("dtTempM1","con",v.Local.sSQL, True)
+'	
+'	F.Intrinsic.Control.CallSub(FillFromDictionaries, "Table", "dtTempM1")
+'	F.Data.Datatable.RemoveColumn("dtTempM1","INV_KEY")
+'	F.Data.DataView.Create("dtTempM1","dvTempM1",22,"CODE_TRANSACTION = 'J55'","JOB")
+'	F.Data.DataView.ToDataTable("dtTempM1", "dvTempM1", "dtTempM")
+'	
+''	CLose temp tables
+'	F.Data.DataView.Close("dtTempM1", "dvTempM1")
+'	F.Data.DataTable.Close("dtTempM1")
+	
+	F.Intrinsic.Control.If(V.DataTable.dtTempO1.Exists,=,True)
+		F.Data.DataTable.Close("dtTempO1")
+	F.Intrinsic.Control.EndIf
+'TR -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	'Outside
+	'F.Intrinsic.String.Build("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, D.TEXT, A.PART, 'EA' AS UM, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, B.NAME, CAST(B.PR_BILL_RATE AS FLOAT) AS PR_BILL_RATE, C.HEAT, E.VENDOR, F.NAME_VENDOR, Rtrim(right(IH.TRANSACTION_DESC,12)) as PO, IH.PART AS DISPLAY_PART FROM V_JOB_DETAIL A LEFT JOIN V_INVENTORY_HIST IH ON A.PART = PO LEFT jOIN V_INVENTORY_ALL IA ON IH.PART = IA.PART LEFT JOIN V_EMPLOYEE_MSTR B ON A.EMPL = B.EMPLOYEE LEFT JOIN V_ITEM_HISTORY C on IH.PART = C.PART AND A.JOB = C.JOB AND A.SUFFIX = C.SUFFIX LEFT JOIN INV_EXTRA_TEXT D ON IH.PART = D.PART LEFT JOIN PO_HISTORY E ON IH.PART = E.PART AND A.REFERENCE = E.PURCHASE_ORDER LEFT JOIN V_VENDOR_MASTER F ON E.VENDOR = F.VENDOR WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 AND LTRIM(RTRIM(A.LMO)) = 'O' AND IH.QUANTITY < 0 AND E.QTY_RECEIVED > 0 and A.job = '{0}';",v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+	
+	F.Intrinsic.String.Build("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, RTRIM(A.PART) PART, 'EA' AS UM, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, RTRIM(A.REFERENCE) REFERENCE FROM V_JOB_DETAIL A  WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 AND LTRIM(RTRIM(A.LMO)) = 'O' and A.job = '{0}'",v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtTempO1","con",v.Local.sSQL, True)
+	
+	'Rtrim(right(IH.TRANSACTION_DESC,12)) as PO    V_INVENTORY_HIST
+	'IH.PART AS DISPLAY_PART
+	'IH.PART+A.JOB+A.SUFFIX AS INV_KEY
+	'E.VENDOR
+	
+'	'Fill PO from inv hist
+'	F.Data.Datatable.AddColumn("dtTempO1","PO","String")
+'	F.Data.Dictionary.CreateFromSQL("dictHist","con","SELECT Rtrim(right(TRANSACTION_DESC,12)) as invKEY, Rtrim(right(TRANSACTION_DESC,12)) as PO FROM V_INVENTORY_HIST")
+'	F.Data.Dictionary.SetDefaultReturn("dictHist","")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictHist","PART","PO")
+'	F.Data.Dictionary.Close("dictHist")
+'	
+'	'Fill Display part from inv hist
+'	F.Data.Datatable.AddColumn("dtTempO1","DISPLAY_PART","String")
+'	F.Data.Dictionary.CreateFromSQL("dictHist","con","select Rtrim(right(TRANSACTION_DESC,12)) as invKEY, PART FROM V_INVENTORY_HIST")
+'	F.Data.Dictionary.SetDefaultReturn("dictHist","")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictHist","PO","DISPLAY_PART")
+'	F.Data.Dictionary.Close("dictHist")
+'	
+'	'Pullin qty from inv hist
+'	F.Data.Datatable.AddColumn("dtTempO1","inv_qty","Float")
+'	F.Data.Dictionary.CreateFromSQL("dictHist","con","SELECT Rtrim(right(TRANSACTION_DESC,12)) as invKEY, QUANTITY FROM V_INVENTORY_HIST")
+'	F.Data.Dictionary.SetDefaultReturn("dictHist","0")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictHist","PO","inv_qty")
+'	F.Data.Dictionary.Close("dictHist")
+'	
+'	'Add expression column for the inv key we use later
+'	F.Data.Datatable.AddExpressionColumn("dtTempO1","INV_KEY","String","[DISPLAY_PART]+[JOB]+[SUFFIX]")
+'	
+'	'Add expression column to pull in po history
+'	F.Data.Datatable.AddExpressionColumn("dtTempO1","PO_Key","String","[DISPLAY_PART]+[REFERENCE]")
+'	
+'	'Fill Vendor from po_history
+'	F.Data.Datatable.AddColumn("dtTempO1","Vendor","String")
+'	F.Data.Dictionary.CreateFromSQL("dictPO","con","SELECT PART+PURCHASE_ORDER AS poKEY, VENDOR FROM V_PO_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictPO","")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictPO","PO_Key","Vendor")
+'	F.Data.Dictionary.Close("dictPO")
+'	
+'	'Fill qty received from po history
+'	F.Data.Datatable.AddColumn("dtTempO1","qty_received","Float")
+'	F.Data.Dictionary.CreateFromSQL("dictPO","con","SELECT PART+PURCHASE_ORDER AS poKEY, QTY_RECEIVED FROM V_PO_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictPO","0")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictPO","PO_KEY","qty_received")
+'	F.Data.Dictionary.Close("dictPO")
+
+'	'Fill Text from Inv_Extra_Text
+'	F.Data.Datatable.AddColumn("dtTempO1","TEXT","String")
+'	F.Data.Dictionary.CreateFromSQL("dictText","con","SELECT PART, TEXT FROM INV_EXTRA_TEXT")
+'	F.Data.Dictionary.SetDefaultReturn("dictText","")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictText","PART","TEXT")
+'	F.Data.Dictionary.Close("dictText")
+'	
+'	'Fill Name from v_employee_mstr
+'	F.Data.Datatable.AddColumn("dtTempO1","Name","String")
+'	F.Data.Dictionary.CreateFromSQL("dictEmp","con","SELECT EMPLOYEE, NAME FROM V_EMPLOYEE_MSTR")
+'	F.Data.Dictionary.SetDefaultReturn("dictEmp","")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictEmp","EMPL","NAME")
+'	F.Data.Dictionary.Close("dictEmp")
+'	
+'	'Fill Bill Rate from v_employee_mstr
+'	F.Data.Datatable.AddColumn("dtTempO1","PR_BILL_RATE","Float")
+'	F.Data.Dictionary.CreateFromSQL("dictEmp","con","SELECT EMPLOYEE, CAST(PR_BILL_RATE AS FLOAT) AS PR_BILL_RATE FROM V_EMPLOYEE_MSTR")
+'	F.Data.Dictionary.SetDefaultReturn("dictEmp","0")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictEmp","EMPL","PR_BILL_RATE")
+'	F.Data.Dictionary.Close("dictEmp")
+'	
+'	'Fill Heat from Item History
+'	F.Data.Datatable.AddColumn("dtTempO1","Heat","String")
+'	F.Data.Dictionary.CreateFromSQL("dictItem","con","SELECT PART+JOB+SUFFIX AS itmKEY, HEAT FROM V_ITEM_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictItem","")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictItem","INV_KEY","Heat")
+'	F.Data.Dictionary.Close("dictItem")
+'	
+'	'Fill BIN from Item History
+'	F.Data.Datatable.AddColumn("dtTempO1","BIN","String")
+'	F.Data.Dictionary.CreateFromSQL("dictItem","con","SELECT PART+JOB+SUFFIX AS itmKEY, BIN FROM V_ITEM_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictItem","")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictItem","INV_KEY","BIN")
+'	F.Data.Dictionary.Close("dictItem")
+'	
+'	'Fill Vendor name from vendor master
+'	F.Data.Datatable.AddColumn("dtTempO1","NAME_VENDOR","String")
+'	F.Data.Dictionary.CreateFromSQL("dictVend","con","SELECT VENDOR, NAME_VENDOR FROM V_VENDOR_MASTER")
+'	F.Data.Dictionary.SetDefaultReturn("dictVend","")
+'	F.Data.Datatable.FillFromDictionary("dtTempO1","dictVend","Vendor","NAME_VENDOR")
+'	F.Data.Dictionary.Close("dictVend")
+
+	F.Intrinsic.Control.CallSub(FillFromDictionaries, "Table", "dtTempO1")
+
+	'Drop INV_KEY field
+	F.Data.Datatable.RemoveColumn("dtTempO1","INV_KEY")
+	
+	'Make dataview to apply the inventory history and po history filters
+	F.Data.DataView.Create("dtTempO1","dvTempO1",22,"INV_QTY < 0 AND QTY_RECEIVED > 0","JOB")
+	
+	F.Data.DataView.ToDataTable("dtTempO1","dvTempO1","dtTempO")
+	
+	'Close temp tables/views
+	F.Data.DataView.Close("dtTempO1", "dvTempO1")
+	F.Data.DataTable.Close("dtTempO1")
+'-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	F.Intrinsic.Control.If(V.DataTable.dtTempNO.Exists,=,True)
+		F.Data.DataTable.Close("dtTempNO")
+	F.Intrinsic.Control.EndIf
+	
+	'Outside No Hist Records
+	F.Intrinsic.String.Build("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, D.TEXT, A.PART, 'EA' AS UM, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, B.NAME, CAST(B.PR_BILL_RATE AS FLOAT) AS PR_BILL_RATE, C.HEAT, E.VENDOR, F.NAME_VENDOR, Rtrim(right(IH.TRANSACTION_DESC,12)) as PO, 'NO PART' AS DISPLAY_PART FROM V_JOB_DETAIL A LEFT JOIN V_INVENTORY_HIST IH ON A.PART = PO LEFT jOIN V_INVENTORY_ALL IA ON IH.PART = IA.PART LEFT JOIN V_EMPLOYEE_MSTR B ON A.EMPL = B.EMPLOYEE LEFT JOIN V_ITEM_HISTORY C on IA.PART = C.PART AND A.JOB = C.JOB AND A.SUFFIX = C.SUFFIX LEFT JOIN INV_EXTRA_TEXT D ON IA.PART = D.PART LEFT JOIN PO_HISTORY E ON A.PART = E.PART AND C.PURCHASE_ORDER = E.PURCHASE_ORDER AND C.PO_LINE = E.PO_LINE LEFT JOIN V_VENDOR_MASTER F ON E.VENDOR = F.VENDOR WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 AND LTRIM(RTRIM(A.LMO)) = 'O' and A.job = '{0}' AND IH.PART NOT IN (SELECT PART FROM V_INVENTORY_HIST G WHERE G.PART = IH.PART);",v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+	'F.Data.DataTable.CreateFromSQL("dtTempNO","con",v.Local.sSQL)
+	
+	F.Intrinsic.Control.If(V.DataTable.dtTempWO.Exists,=,True)
+		F.Data.DataTable.Close("dtTempPOM")
+	F.Intrinsic.Control.EndIf
+	
+	'Received Matl
+'	F.Intrinsic.String.Build("SELECT Rtrim(right(IH.TRANSACTION_DESC,12)) as PO, A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, D.TEXT, A.PART, IA.UM_INVENTORY AS UM, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, B.NAME, CAST(B.PR_BILL_RATE AS FLOAT) AS PR_BILL_RATE, C.HEAT, E.VENDOR, F.NAME_VENDOR, RTRIM(IH.PART) AS DISPLAY_PART FROM V_JOB_DETAIL A LEFT JOIN V_INVENTORY_HIST IH ON A.PART = PO LEFT jOIN V_INVENTORY_ALL IA ON IH.PART = IA.PART LEFT JOIN V_EMPLOYEE_MSTR B ON A.EMPL = B.EMPLOYEE LEFT JOIN V_ITEM_HISTORY C on IA.PART = C.PART AND A.JOB = C.JOB AND A.SUFFIX = C.SUFFIX LEFT JOIN INV_EXTRA_TEXT D ON IA.PART = D.PART LEFT JOIN PO_HISTORY E ON IA.PART = E.PART AND A.REFERENCE = E.PURCHASE_ORDER LEFT JOIN V_VENDOR_MASTER F ON E.VENDOR = F.VENDOR WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 and ih.quantity < 0 AND C.QUANTITY < 0 AND C.CODE_TRANSACTION = 'R10' and LTRIM(RTRIM(A.LMO)) = 'M' AND E.QTY_RECEIVED > 0 AND a.job = '{0}';",v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+'	F.Data.DataTable.CreateFromSQL("dtTempPOM","con",v.Local.sSQL)
+		
+	F.Intrinsic.String.Build("SELECT A.JOB, A.SUFFIX, A.SEQ, A.DATE_SEQUENCE, A.DESCRIPTION, RTRIM(A.PART) PART, 'EA' AS UM, CAST(A.HOURS_WORKED AS FLOAT) AS HOURS_WORKED, A.LMO, A.EMPL, A.RATE_TYPE, A.SEQUENCE_KEY, A.START_TIME, A.END_TIME, CAST(A.AMOUNT_LABOR AS FLOAT) AS AMOUNT_LABOR, RTRIM(A.REFERENCE) REFERENCE FROM V_JOB_DETAIL A  WHERE A.EDITED_WO_DTL not like 'R' and A.HOURS_WORKED > 0 and LTRIM(RTRIM(A.LMO)) = 'M' and A.JOB = '{0}'", v.Screen.frmTimeMaterial!cboJobNum.Value, v.Local.sSQL)
+	F.Data.DataTable.CreateFromSQL("dtTempPOM1","con",v.Local.sSQL, True)
+	
+	
+'	'Fill PO from inv hist
+'	F.Data.Datatable.AddColumn("dtTempPOM1","PO","String")
+'	F.Data.Dictionary.CreateFromSQL("dictHist","con","SELECT Rtrim(right(TRANSACTION_DESC,12)) as invKEY, Rtrim(right(TRANSACTION_DESC,12)) as PO FROM V_INVENTORY_HIST")
+'	F.Data.Dictionary.SetDefaultReturn("dictHist","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictHist","PART","PO")
+'	F.Data.Dictionary.Close("dictHist")
+'	
+'	'Fill Display part from inv hist
+'	F.Data.Datatable.AddColumn("dtTempPOM1","DISPLAY_PART","String")
+'	F.Data.Dictionary.CreateFromSQL("dictHist","con","select Rtrim(right(TRANSACTION_DESC,12)) as invKEY, PART FROM V_INVENTORY_HIST")
+'	F.Data.Dictionary.SetDefaultReturn("dictHist","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictHist","PO","DISPLAY_PART")
+'	F.Data.Dictionary.Close("dictHist")
+'	
+'	'Pulling qty from inv hist
+'	F.Data.Datatable.AddColumn("dtTempPOM1","INV_QTY","Float")
+'	F.Data.Dictionary.CreateFromSQL("dictHist","con","SELECT Rtrim(right(TRANSACTION_DESC,12)) as invKEY, QUANTITY FROM V_INVENTORY_HIST")
+'	F.Data.Dictionary.SetDefaultReturn("dictHist","0")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictHist","PO","INV_QTY")
+'	F.Data.Dictionary.Close("dictHist")
+'	
+'	'Add expression column for the inv key we use later
+'	F.Data.Datatable.AddExpressionColumn("dtTempPOM1","INV_KEY","String","[DISPLAY_PART]+[JOB]+[SUFFIX]")
+'	
+'	'Add expression column to pull in po history
+'	F.Data.Datatable.AddExpressionColumn("dtTempPOM1","PO_Key","String","[DISPLAY_PART]+[REFERENCE]")
+'	
+'	'Fill Vendor from po_history
+'	F.Data.Datatable.AddColumn("dtTempPOM1","VENDOR","String")
+'	F.Data.Dictionary.CreateFromSQL("dictPO","con","SELECT PART+PURCHASE_ORDER AS poKEY, VENDOR FROM V_PO_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictPO","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictPO","PO_Key","Vendor")
+'	
+'	F.Data.Dictionary.Close("dictPO")
+'	
+'	'Fill qty received from po history
+'	F.Data.Datatable.AddColumn("dtTempPOM1","QTY_RECEIVED","Float")
+'	F.Data.Dictionary.CreateFromSQL("dictPO","con","SELECT PART+PURCHASE_ORDER AS poKEY, QTY_RECEIVED FROM V_PO_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictPO","0")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictPO","PO_KEY","QTY_RECEIVED")
+'	F.Data.Dictionary.Close("dictPO")
+'	
+'	'Fill Text from Inv_Extra_Text
+'	F.Data.Datatable.AddColumn("dtTempPOM1","TEXT","String")
+'	F.Data.Dictionary.CreateFromSQL("dictText","con","SELECT PART, TEXT FROM INV_EXTRA_TEXT")
+'	F.Data.Dictionary.SetDefaultReturn("dictText","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictText","PART","TEXT")
+'	F.Data.Dictionary.Close("dictText")
+'	
+'	'Fill Name from v_employee_mstr
+'	F.Data.Datatable.AddColumn("dtTempPOM1","Name","String")
+'	F.Data.Dictionary.CreateFromSQL("dictEmp","con","SELECT EMPLOYEE, NAME FROM V_EMPLOYEE_MSTR")
+'	F.Data.Dictionary.SetDefaultReturn("dictEmp","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictEmp","EMPL","NAME")
+'	F.Data.Dictionary.Close("dictEmp")
+'	
+'	'Fill Bill Rate from v_employee_mstr
+'	F.Data.Datatable.AddColumn("dtTempPOM1","PR_BILL_RATE","Float")
+'	F.Data.Dictionary.CreateFromSQL("dictEmp","con","SELECT EMPLOYEE, CAST(PR_BILL_RATE AS FLOAT) AS PR_BILL_RATE FROM V_EMPLOYEE_MSTR")
+'	F.Data.Dictionary.SetDefaultReturn("dictEmp","0")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictEmp","EMPL","PR_BILL_RATE")
+'	F.Data.Dictionary.Close("dictEmp")
+'	
+'	'Fill Heat from Item History
+'	F.Data.Datatable.AddColumn("dtTempPOM1","Heat","String")
+'	F.Data.Dictionary.CreateFromSQL("dictItem","con","SELECT PART+JOB+SUFFIX AS itmKEY, HEAT FROM V_ITEM_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictItem","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictItem","INV_KEY","Heat")
+'	F.Data.Dictionary.Close("dictItem")
+	
+'	'Fill BIN from Item History
+'	F.Data.Datatable.AddColumn("dtTempPOM1","BIN","String")
+'	F.Data.Dictionary.CreateFromSQL("dictItem","con","SELECT PART+JOB+SUFFIX AS itmKEY, BIN FROM V_ITEM_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictItem","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictItem","INV_KEY","BIN")
+	
+'	F.Data.Dictionary.Close("dictItem")
+	
+'	'Fill Vendor name from vendor master
+'	F.Data.Datatable.AddColumn("dtTempPOM1","NAME_VENDOR","String")
+'	F.Data.Dictionary.CreateFromSQL("dictVend","con","SELECT VENDOR, NAME_VENDOR FROM V_VENDOR_MASTER")
+'	F.Data.Dictionary.SetDefaultReturn("dictVend","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictVend","Vendor","NAME_VENDOR")
+'	F.Data.Dictionary.Close("dictVend")
+
+'	'Fill Qty from Item History
+'	F.Data.Datatable.AddColumn("dtTempPOM1","QUANTITY","Float")
+'	F.Data.Dictionary.CreateFromSQL("dictItem","con","SELECT PART+JOB+SUFFIX AS itmKEY, QUANTITY FROM V_ITEM_HISTORY")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictItem","INV_KEY","QUANTITY")
+'	F.Data.Dictionary.Close("dictItem")
+'	
+'	'Fill code transaction from item history
+'	F.Data.Datatable.AddColumn("dtTempPOM1","CODE_TRANSACTION","String")
+'	F.Data.Dictionary.CreateFromSQL("dictItem","con","SELECT PART+JOB+SUFFIX AS itmKEY, CODE_TRANSACTION FROM V_ITEM_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictItem","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictItem","INV_KEY","CODE_TRANSACTION")
+'	F.Data.Dictionary.Close("dictItem")
+'	
+'		'Fill BIN from Item History
+'	F.Data.Datatable.AddColumn("dtTempPOM1","BIN","String")
+'	F.Data.Dictionary.CreateFromSQL("dictItem","con","SELECT PART+JOB+SUFFIX AS itmKEY, BIN FROM V_ITEM_HISTORY")
+'	F.Data.Dictionary.SetDefaultReturn("dictItem","")
+'	F.Data.Datatable.FillFromDictionary("dtTempPOM1","dictItem","INV_KEY","BIN")
+
+	F.Intrinsic.Control.CallSub(FillFromDictionaries, "Table", "dtTempPOM1")
+	
+	'Drop INV_KEY field
+	F.Data.Datatable.RemoveColumn("dtTempPOM1","INV_KEY")
+	
+	'Make dataview to apply the inventory history and po history filters
+	F.Data.DataView.Create("dtTempPOM1","dvTempPOM1",22,"INV_QTY < 0 AND QUANTITY < 0 AND CODE_TRANSACTION = 'R10' AND QTY_RECEIVED > 0","JOB")
+	
+	F.Data.DataView.ToDataTable("dtTempPOM1","dvTempPOM1","dtTempPOM")
+	
+	'Close temp tables/views
+	F.Data.DataView.Close("dtTempPOM1", "dvTempPOM1")
+	F.Data.DataTable.Close("dtTempPOM1")
+	
+	'F.Intrinsic.UI.Msgbox(v.Local.sSQL)	
+	Gui.frmTimeMaterial.pgbStatus.Value(50)
+	
+	'add markup colunms total and rate 		
+'	F.Data.DataTable.AddExpressionColumn("dtJobHist", "Materialup", "long", v.Local.fMmkup)
+'	F.Data.DataTable.AddExpressionColumn("dtJobHist", "Outsideup", "long", v.Local.fOmkup)
+'	f.Data.Datatable.AddColumn("dtJobHist","Total_Price","float")
+'	f.Data.Datatable.AddColumn("dtJobHist","JBRATE","float")
+'	f.Data.Datatable.AddColumn("dtJobHist","LRATE","float")
+	
+	F.Intrinsic.Control.If(V.DataTable.dtTempL.RowCount--,>,-1)
+		F.Data.DataTable.Merge("dtTempL", "dtJobHist", True, 1)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtTempM.RowCount--,>,-1)
+		F.Data.DataTable.Merge("dtTempM", "dtJobHist", True, 1)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtTempO.RowCount--,>,-1)
+		F.Data.DataTable.Merge("dtTempO", "dtJobHist", True, 1)
+	F.Intrinsic.Control.EndIf
+	
+'	F.Intrinsic.Control.If(V.DataTable.dtTempNO.RowCount--,>,-1)
+'		F.Data.DataTable.Merge("dtTempNO", "dtJobHist", True, 1)
+'	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.If(V.DataTable.dtTempPOM.RowCount--,>,-1)
+		F.Data.DataTable.Merge("dtTempPOM", "dtJobHist", True, 1)
+	F.Intrinsic.Control.EndIf
+	
+	F.Data.DataTable.Close("dtTempL")
+	F.Data.DataTable.Close("dtTempM")
+	F.Data.DataTable.Close("dtTempO")
+	'F.Data.DataTable.Close("dtTempNO")
+	F.Data.DataTable.Close("dtTempPOM")
+	
+	F.Intrinsic.Control.CallSub(CloseDictionaries)
+
+	'Filter table to only show distinct records
+	F.Data.DataView.Create("dtJobHist", "dvJobHist")
+	F.Data.DataView.ToDataTableDistinct("dtJobHist", "dvJobHist", "dtFiltered", V.DataTable.dtJobHist.FieldNames)
+	F.Data.Datatable.DeleteRow("dtJobHist", -1)
+	F.Data.Datatable.AcceptChanges("dtJobHist")
+	F.Data.Datatable.Merge("dtFiltered", "dtJobHist", False, 1)
+	
+	'Close remaining temp tables/vies
+	F.Data.DataView.Close("dtJobHist", "dvJobHist")
+	F.Data.DataTable.Close("dtFiltered")
+	
+	'If additional temp columns were added, remove them
+	F.Intrinsic.String.IsInString(V.DataTable.dtJobHist.FieldNames, "REFERENCE", True, V.Local.bRet)
+	F.Intrinsic.Control.If(V.Local.bRet, =, True)
+		F.Data.Datatable.RemoveColumn("dtJobHist", "REFERENCE")
+		F.Data.Datatable.RemoveColumn("dtJobHist", "inv_qty")
+		F.Data.Datatable.RemoveColumn("dtJobHist", "PO_Key")
+		F.Data.Datatable.RemoveColumn("dtJobHist", "qty_received")
+		F.Data.Datatable.RemoveColumn("dtJobHist", "CODE_TRANSACTION")
+		F.Data.Datatable.RemoveColumn("dtJobHist", "QUANTITY")
+	F.Intrinsic.Control.EndIf
+	
+	'Get LMO apply markups
+	F.Intrinsic.Control.If(V.DataTable.dtJobHist.RowCount, !=, 0)
+
+		F.Intrinsic.Control.For(V.Local.i,0,V.DataTable.dtJobhist.RowCount--,1)
+			v.Local.sLMO.Set(V.DataTable.dtJobHist(V.Local.i).LMO!FieldValTrim)
+			v.Local.fMatLab.Set(V.DataTable.dtJobHist(V.Local.i).AMOUNT_LABOR!FieldValTrim)
+			v.Local.fHrsWkd.Set(V.DataTable.dtJobHist(V.Local.i).HOURS_WORKED!FieldValTrim)
+			v.Local.sRtType.Set(V.DataTable.dtJobHist(V.Local.i).RATE_TYPE!FieldValTrim)
+			v.Local.fRate.Set(V.DataTable.dtJobHist(V.Local.i).PR_BILL_RATE!FieldValTrim)
+			
+	
+	'		f.Intrinsic.control.if(v.Local.sLMO,"=","L")
+	'							F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"AMOUNT_LABOR","0")
+	'							Function.Intrinsic.Control.EndIf
+				f.Intrinsic.Control.If(v.Local.sLMO,"=","M")
+					'Rate for material
+					f.Intrinsic.Math.Evaluate("[v.Local.fMatLab]/[v.Local.fHrsWkd]*(1+[v.local.fMmkup])",v.Local.fMatRes)
+					F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"JBRATE",v.Local.fMatRes)
+					'Total Price
+					f.Intrinsic.Math.Evaluate("[v.Local.fMatRes]*([v.local.fHrsWkd])",v.Local.fTot)
+					F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"Total_price",v.Local.fTot)
+					f.Intrinsic.Control.Next(V.Local.i)	
+				
+					'rate for DT aka x2 the reg rate
+				F.Intrinsic.Control.ElseIf(v.Local.sLMO,"=","L")
+					Function.Intrinsic.Control.AndIf(V.Local.sRtType,"=","2")
+						f.Intrinsic.Math.Evaluate("2*[v.Local.fRate]",v.Local.fMatRes)
+						F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"LRATE",v.Local.fMatRes)
+						F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"AMOUNT_LABOR","0")
+					'total Price
+						f.Intrinsic.Math.Evaluate("[v.Local.fMatRes]*([v.local.fHrsWkd])",v.Local.fTot)
+						Function.Data.DataTable.SetValue("dtJobHist",V.Local.i,"Total_Price",v.Local.fTot)
+						f.Intrinsic.Control.Next(V.Local.i)
+						'Rate OT aka *1.5
+				F.Intrinsic.Control.ElseIf(v.Local.sLMO,"=","L")
+					Function.Intrinsic.Control.AndIf(V.Local.sRtType,"=","O")
+						f.Intrinsic.Math.Evaluate("1.5*[v.Local.fRate]",v.Local.fMatRes)
+						F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"LRATE",v.Local.fMatRes)
+						F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"AMOUNT_LABOR","0")
+						'total Price
+						
+						f.Intrinsic.Math.Evaluate("[v.Local.fMatRes]*([v.local.fHrsWkd])",v.Local.fTot)
+						Function.Data.DataTable.SetValue("dtJobHist",V.Local.i,"Total_Price",v.Local.fTot)
+						f.Intrinsic.Control.Next(V.Local.i)
+							'Rate ~ regular rate
+				F.Intrinsic.Control.ElseIf(v.Local.sLMO,"=","L")
+					Function.Intrinsic.Control.AndIf(V.Local.sRtType,"=","R")
+						f.Intrinsic.Math.Evaluate("[v.Local.fRate]",v.Local.fMatRes)
+					    F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"LRATE",v.Local.fMatRes)
+					    F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"AMOUNT_LABOR","0")
+							'Total Price
+						f.Intrinsic.Math.Evaluate("[v.Local.fMatRes]*([v.local.fHrsWkd])",v.Local.fTot)
+						Function.Data.DataTable.SetValue("dtJobHist",V.Local.i,"Total_Price",v.Local.fTot)
+						f.Intrinsic.Control.Next(V.Local.i)
+					
+								'Outside 
+				F.Intrinsic.Control.ElseIf(v.Local.sLMO,"=","O")
+					f.Intrinsic.Math.Evaluate("[v.Local.fMatLab]/[v.Local.fHrsWkd]*(1+[v.Local.fOmkup])",v.Local.fMatRes)
+					F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"JBRATE",v.Local.fMatRes)
+								
+					f.Intrinsic.Math.Evaluate("[v.Local.fMatRes]*([v.local.fHrsWkd])",v.Local.fTot)
+					Function.Data.DataTable.SetValue("dtJobHist",V.Local.i,"Total_Price",v.Local.fTot)
+					f.Intrinsic.Control.Next(V.Local.i)
+								
+								
+				Function.Intrinsic.Control.Else
+					Function.Data.DataTable.SetValue("dtJobHist",V.Local.i,"Total_Price","0")
+					f.Intrinsic.Control.Next(V.Local.i)
+				Function.Intrinsic.Control.EndIf
+							
+							'f.Intrinsic.control.if(v.Local.sLMO,"=","L")
+							'F.Data.DataTable.SetValue("dtJobHist",V.Local.i,"AMOUNT_LABOR","0")
+							'Function.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf				
+	
+	F.Intrinsic.Control.CallSub(PopulateNotes)
+	
+	F.ODBC.Connection!con.Close
+	Gui.frmTimeMaterial.pgbStatus.Value(75)
+	
+	F.Intrinsic.Control.CallSub(LoadGvJobHist)
+	Gui.frmTimeMaterial.pgbStatus.Value(90)
+	
+	Gui.frmTimeMaterial.pgbStatus.Value(100)
+	Gui.frmTimeMaterial.cmdRefresh.Enabled(True)
+	Gui.frmTimeMaterial.lblStatus.Visible(False)
+	Gui.frmTimeMaterial.pgbStatus.Visible(False)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.LoadDtJobHist.End
+
+Program.Sub.LoadGvJobHist.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	Gui.frmTimeMaterial.GsGCJobHist.AddGridviewFromDatatable("gvJobHist","dtJobHist")
+
+	Gui.frmTimeMaterial.GsGCJobHist.SuspendLayout()
+	Gui.frmTimeMaterial.GsGCJobHist.SetGridviewProperty("gvJobHist","MultiSelect",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetGridviewProperty("gvJobHist","AllowSort",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetGridviewProperty("gvJobHist","AllowFilter",True)
+	Gui.frmTimeMaterial.GsGCJobHist.setGridViewProperty("gvJobHist","OptionsDetailShowDetailTabs",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetGridviewProperty("gvJobHist","OptionsViewShowGroupPanel",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetGridViewProperty("gvJobHist","EnableAppearanceOddRow",True)
+	
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Materialup","Visible",false)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Outsideup","Visible",false)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PR_BILL_RATE","Visible",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","LRATE","Visible",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PART","Visible",False)
+	
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","LRATE","AllowShowHide", False)
+	
+	Gui.frmTimeMaterial.GsGCJobHist.SetGridViewProperty("gvJobHist","AllowColumnResizing",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetGridViewProperty("gvJobHist","OptionsViewColumnAutoWidth",False)
+	
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JOB","Caption","Job")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SUFFIX","Caption","Suffix")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQ","Caption","Seq")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DATE_SEQUENCE","Caption","Date")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DESCRIPTION","Caption","Description")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","TEXT","Caption","ALT Description")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PART","Caption","Part")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","UM","Caption","UM")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HOURS_WORKED","Caption","QTY")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","Caption","Total Price")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","Caption","Rate")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","LMO","Caption","LMO")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","EMPL","Caption","Employee")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","RATE_TYPE","Caption","Rate Type")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQUENCE_KEY","Caption","Sequence-Key")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","START_TIME","Caption","Start Time")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","END_TIME","Caption","End Time")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME","Caption","Name")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","AMOUNT_LABOR","Caption","Material Cost")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HEAT","Caption","Heat")	
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","VENDOR","Caption","Vendor Number")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME_VENDOR","Caption","Vendor Name")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DISPLAY_PART","Caption","Part/Workcenter")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PO","Caption","PO")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","BIN","Caption","Bin")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NOTES","Caption","Notes")
+
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JOB","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SUFFIX","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQ","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DATE_SEQUENCE","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DESCRIPTION","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","TEXT","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PART","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","UM","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HOURS_WORKED","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","LMO","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","EMPL","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","RATE_TYPE","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQUENCE_KEY","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","START_TIME","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","END_TIME","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","AMOUNT_LABOR","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HEAT","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","VENDOR","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME_VENDOR","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DISPLAY_PART","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PO","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","BIN","AllowEdit",False)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NOTES","AllowEdit",True)
+	
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NOTES","ReadOnly",False)
+	
+
+'	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("GvJobHist", "Total_Price", "CellBackColor", "#e0e4f4")
+			
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JOB","MinWidth","55")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SUFFIX","MinWidth","40")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQ","MinWidth","40")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DATE_SEQUENCE","MinWidth","80")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DESCRIPTION","MinWidth","150")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","TEXT","MinWidth","150")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PART","MinWidth","110")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","UM","MinWidth","40")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HOURS_WORKED","MinWidth","60")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","MinWidth","95")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","MinWidth","95")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","LMO","MinWidth","60")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","EMPL","MinWidth","60")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","RATE_TYPE","MinWidth","105")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQUENCE_KEY","MinWidth","100")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","START_TIME","MinWidth","100")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","END_TIME","MinWidth","100")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME","MinWidth","100")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","AMOUNT_LABOR","MinWidth","90")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HEAT","MinWidth","80")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","VENDOR","MinWidth","95")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME_VENDOR","MinWidth","95")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DISPLAY_PART","MinWidth","110")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PO","MinWidth","110")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","BIN","MinWidth","100")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NOTES","MinWidth","350")
+
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JOB","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SUFFIX","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQ","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DATE_SEQUENCE","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DESCRIPTION","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","TEXT","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PART","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","UM","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HOURS_WORKED","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","LMO","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","EMPL","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","RATE_TYPE","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQUENCE_KEY","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","START_TIME","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","END_TIME","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","AMOUNT_LABOR","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HEAT","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","VENDOR","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME_VENDOR","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DISPLAY_PART","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PO","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","BIN","HeaderFontBold",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NOTES","HeaderFontBold",True)
+
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JOB","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SUFFIX","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQ","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DATE_SEQUENCE","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DESCRIPTION","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","TEXT","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PART","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","UM","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HOURS_WORKED","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","LMO","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","EMPL","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","RATE_TYPE","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQUENCE_KEY","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","START_TIME","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","END_TIME","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","AMOUNT_LABOR","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HEAT","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","VENDOR","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME_VENDOR","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DISPLAY_PART","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PO","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","BIN","HeaderHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NOTES","HeaderHAlignment","Center")
+		
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQ","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DESCRIPTION","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PART","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","UM","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HOURS_WORKED","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","LMO","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","EMPL","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","SEQUENCE_KEY","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","START_TIME","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","END_TIME","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","NAME","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","AMOUNT_LABOR","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HEAT","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DISPLAY_PART","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PO","CellHAlignment","Center")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","BIN","CellHAlignment","Center")
+	
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","DATE_SEQUENCE","DisplayCustomDateTime","d")
+	
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","Total_Price","DisplayCustomNumeric","#,###,###,##0.00")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","JBRATE","DisplayCustomNumeric","#,###,###,##0.00")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","HOURS_WORKED","DisplayCustomNumeric","#,###,###,##0.00")
+	Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","AMOUNT_LABOR","DisplayCustomNumeric","#,###,###,##0.00")
+	
+'	Gui.frmTimeMaterial.GsGCJobHist.AddStyleFormatCondition("gvJobHist","Total_Price","totalcolor", "Less", "0")
+'	Gui.frmTimeMaterial.GsGCJobHist.SetStyleFormatConditionProperty("gvJobHist","Total_Price","totalcolor", "backcolor", "Salmon")
+	
+	Gui.frmTimeMaterial.GsGCJobHist.AddStyleFormatCondition("gvJobHist","Total_Price","totalcolor", "Equal", "0")
+	Gui.frmTimeMaterial.GsGCJobHist.SetStyleFormatConditionProperty("gvJobHist","Total_Price","totalcolor", "backcolor", "Salmon")
+	Gui.frmTimeMaterial.GsGCJobHist.SetStyleFormatConditionProperty("gvJobHist","Total_Price","totalcolor", V.Enum.ConditionalPropertyNames!ApplyToRow, True)
+	
+	Gui.frmTimeMaterial.GsGCJobHist.AddSummaryItem("gvJobHist","Total_Price","Total_Cost","Sum","","","n2")
+
+	F.Intrinsic.Control.If(V.Global.bLongPart)
+		Gui.frmTimeMaterial.GsGCJobHist.SetColumnProperty("gvJobHist","PART","MinWidth","250")
+	F.Intrinsic.Control.EndIf
+		Gui.frmTimeMaterial.GsGCJobHist.SetGridViewProperty("gvJobHist","AllowColumnResizing",True)
+	Gui.frmTimeMaterial.GsGCJobHist.SetGridViewProperty("gvJobHist","OptionsViewColumnAutoWidth",False)
+	Gui.frmTimeMaterial.GsGCJobHist.ResumeLayout()
+	Gui.frmTimeMaterial.GsGCJobHist.MainView("gvJobHist")
+	
+
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.LoadGvJobHist.End
+
+Program.Sub.Serialize.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.sSerialize.Declare
+	
+	'gvJobHist
+	Gui.frmTimeMaterial.GsGCJobHist.Serialize("gvJobHist",V.Local.sSerialize)
+	F.Global.Registry.AddValue(V.Caller.User,V.Caller.CompanyCode,"GVJobHist",7377,9999,False,"Serialize",False,0,-999.0,1/1/1980,12:00:00 AM,V.Local.sSerialize)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+	F.Intrinsic.Control.EndTry
+Program.Sub.Serialize.End
+
+Program.Sub.Deserialize.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.sSerialize.Declare
+	
+	'gvJobHist
+	F.Global.Registry.ReadValue(V.Caller.User,V.Caller.CompanyCode,"GVJobHist",7377,9999,6,"",V.Local.sSerialize)
+	F.Intrinsic.Control.If(V.Local.sSerialize.Trim,<>,"")
+		Gui.frmTimeMaterial.GsGCJobHist.Deserialize(V.Local.sSerialize)
+	F.Intrinsic.Control.EndIf
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End
+	F.Intrinsic.Control.EndTry
+Program.Sub.Deserialize.End
+
+Program.Sub.picGSS_DblClick.Start
+	F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	F.Intrinsic.Task.ShellExec(0,"Open","http://www.globalshopsolutions.com/login-customer","","",0)
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.picGSS_DblClick.End
+
+Program.Sub.GsGCJobHist_CellValueChanged.Start
+F.Intrinsic.Control.Try
+V.Local.sError.Declare(String)
+
+	F.Intrinsic.Control.SelectCase(V.Args.Column)
+		
+		F.Intrinsic.Control.Case("NOTES")
+			V.Local.sJob.Declare(String)
+			V.Local.sSuffix.Declare(String)
+			V.Local.sSeq.Declare(String)
+			V.Local.sDate.Declare(String)
+			V.Local.sStartTime.Declare(String)
+			V.Local.sEndTime.Declare(String)
+			V.Local.sTotalPrice.Declare(String)
+			V.Local.sSql.Declare(String)
+			V.Local.sNotes.Declare(String)
+			V.Local.sRet.Declare(String)
+			V.Local.sKey.Declare(String)
+			
+			GUI.frmTimeMaterial.GsGCJobHist.GetCellValueByColumnName("gvJobHist", "JOB", V.Args.RowIndex, V.Local.sJob)
+			GUI.frmTimeMaterial.GsGCJobHist.GetCellValueByColumnName("gvJobHist", "SUFFIX", V.Args.RowIndex, V.Local.sSuffix)
+			GUI.frmTimeMaterial.GsGCJobHist.GetCellValueByColumnName("gvJobHist", "SEQ", V.Args.RowIndex, V.Local.sSeq)
+			GUI.frmTimeMaterial.GsGCJobHist.GetCellValueByColumnName("gvJobHist", "DATE_SEQUENCE", V.Args.RowIndex, V.Local.sDate)
+			GUI.frmTimeMaterial.GsGCJobHist.GetCellValueByColumnName("gvJobHist", "START_TIME", V.Args.RowIndex, V.Local.sStartTime)
+			GUI.frmTimeMaterial.GsGCJobHist.GetCellValueByColumnName("gvJobHist", "END_TIME", V.Args.RowIndex, V.Local.sEndTime)
+			GUI.frmTimeMaterial.GsGCJobHist.GetCellValueByColumnName("gvJobHist", "TOTAL_PRICE", V.Args.RowIndex, V.Local.sTotalPrice)
+			GUI.frmTimeMaterial.GsGCJobHist.GetCellValueByColumnName("gvJobHist", "NOTES", V.Args.RowIndex, V.Local.sNotes)
+
+			F.ODBC.Connection!con.OpenCompanyConnection
+			
+			F.Intrinsic.String.Build("{0}{1}{2}{3}{4}{5}{6}", V.Local.sJob, V.Local.sSuffix, V.Local.sSeq, V.Local.sDate, V.Local.sStartTime, V.Local.sEndTime, V.Local.sTotalPrice, V.Local.sKey)
+			
+			F.Intrinsic.String.Build("Select NOTES from GCG_6843_NOTES where NOTE_KEY = '{0}'", V.Local.sKey.PSQLFriendly, V.Local.sSQl)
+			F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSql, V.Local.sRet)
+			
+			'If not return, insert new record to GCG_6843_NOTES table
+			F.Intrinsic.Control.If(V.Ambient.ExecuteAndReturnEOF, =, True)
+				F.Intrinsic.String.Build("insert into GCG_6843_NOTES values ('{0}', '{1}')", V.Local.sKey.PSQLFriendly, V.Local.sNotes.PSQLFriendly, V.Local.sSql)
+				F.ODBC.Connection!con.Execute(V.Local.sSql)
+				
+			'Else update record in table
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Build("update GCG_6843_NOTES set NOTES = '{0}' where NOTE_KEY = '{1}'", V.Local.sNotes.PSQLFriendly, V.Local.sKey.PSQLFriendly, V.Local.sSql)
+				F.ODBC.Connection!con.Execute(V.Local.sSql)
+				
+			F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndSelect
+	F.ODBC.Connection!con.Close
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End 
+F.Intrinsic.Control.EndTry
+Program.Sub.GsGCJobHist_CellValueChanged.End
+
+Program.Sub.PopulateNotes.Start
+F.Intrinsic.Control.Try
+V.Local.sError.Declare(String)
+
+	'Add notes column, create notes dictionary, and fill main table from dict
+	F.Data.DataTable.AddColumn("dtJobHist", "NOTES", "String")
+	F.Data.DataTAble.AddExpressionColumn("dtJobHist", "NOTE_KEY", "String", "[JOB]+[SUFFIX]+[SEQ]+[DATE_SEQUENCE]+[START_TIME]+[END_TIME]+[TOTAL_PRICE]")
+	
+	F.Data.Dictionary.CreateFromSQL("dictNotes", "con", "Select RTRIM(NOTE_KEY), RTRIM(NOTES) from GCG_6843_NOTES")
+	F.Data.Dictionary.SetDefaultReturn("dictNotes", "")
+	F.Data.DataTable.FillFromDictionary("dtJobHist", "dictNotes", "NOTE_KEY", "NOTES")
+	F.Data.Dictionary.Close("dictNotes")
+	F.Data.DataTable.RemoveColumn("dtJobHist", "NOTE_KEY")
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End 
+F.Intrinsic.Control.EndTry
+Program.Sub.PopulateNotes.End
+
+Program.Sub.Comments.Start
+${$5$}$2.0.0.0$}$2
+${$6$}$Angel$}$20240122152049847$}$KXl0r/FkrMYwb/r4ukQ87f+Hs/x2T/urV104kmf+IupsdUj3+rl4cbkXl2hEm90Y5Pp6iRmrgEE=
+Program.Sub.Comments.End
